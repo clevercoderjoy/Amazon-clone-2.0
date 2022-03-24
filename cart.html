@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.1.1/dist/jdenticon.min.js" async
+        integrity="sha384-l0/0sn63N3mskDgRYJZA6Mogihu0VY3CusdLMiwpJ9LFPklOARUcOiWEIGGmFELx"
+        crossorigin="anonymous">
+    </script>
+    <!-- importing firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="./firebase.js"></script>
+    <!-- importing firebase done -->
+    <script src="./header.js"></script>
+    <script src="./cart.js"></script>
+    <title>clevercoderjoy - Amazon Clone 2.0</title>
+</head>
+
+<body>
+    <div class="bg-white w-full">
+
+        <!-- header start-->
+        <div class="header bg-gray-900 h-16 flex items-center">
+            <div class="logo w-1/5 h-16 ml-10">
+                <a href="/">
+                    <img class="w-28 h-16 object-contain"
+                        src="https://www.pinclipart.com/picdir/big/57-576184_view-our-amazon-storefront-logo-white-png.png"
+                        alt="Amazon">
+                </a>
+            </div>
+
+            <!-- input area -->
+            <input
+                class="h-9 w-30 bg-gray-800 border-gray-500 border-opacity-75 rounded-l-xl px-3 text-white ml-6 focus:outline-none placeholder-white"
+                id="search" type="text" placeholder="Search..." />
+
+            <!-- categories -->
+            <div
+                class="categories h-9 w-30 bg-gray-800 border border-gray-500 border-opacity-75 px-3 text-white flex items-center">
+                categories
+                <!-- down arrow icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </div>
+
+            <!-- search icon -->
+            <div class="search-icon h-9 w-10 rounded-r-xl bg-yellow-500 flex justify-center  items-center text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                        clip-rule="evenodd" />
+                </svg>
+            </div>
+
+            <!-- right side icons -->
+            <div class="icons text-white flex items-center ml-auto mr-8 w-48 h-16 justify-around">
+
+                <!-- heart icon -->
+                <svg class="h-6 w-6 m-1" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                    fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                        clip-rule="evenodd" />
+                </svg>
+
+                <!-- cart icon -->
+                    <div class="cart-icon h-10 w-10 bg-yellow-500 flex items-center justify-center rounded-xl relative">
+                        <!-- total cart items -->
+                        <div class="cart-item-number font-bold absolute -top-1 -right-1 h-4 w-4 bg-white rounded-full flex justify-center items-center text-gray-800 text-xs">
+                            <!-- total number of items in the cart goes here from the database -->
+                        </div>
+                        <!-- total cart items ends -->
+                        <svg class="h-4 w-4 text-gray-600" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </div>
+                </a>
+
+                <!-- bell -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>
+                
+                <!-- avatar -->
+                <svg class="h-12 w-12 rounded" width="80" height="80" data-jdenticon-value="clevercoderjoy"></svg>
+            </div>
+
+        </div>
+        <!-- header end-->
+
+        <!-- main -->
+        <div class="main h-screen flex">
+
+            <!--sidebar-->
+            <div class="border-t-2 border-gray-700 main-sidebar w-1/5 bg-gray-900 p-6">
+
+                <!-- sidebar categories -->
+                <div class="sidebar-categories">
+                    <div class="sidebar-main-category text-yellow-500 cursor-pointer flex font-bold p-2 bg-gray-700 rounded-lg">
+                        <span class="w-8">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                            </svg>
+                        </span>
+                        <span>Categories</span>
+                    </div>
+
+                    <!-- sidebar items starts-->
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2">
+                        <span class="w-8"></span>
+                        <span>Echo and Alexa</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2">
+                        <span class="w-8"></span>
+                        <span>Kindle</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2">
+                        <span class="w-8"></span>
+                        <span>Books</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2">
+                        <span class="w-8"></span>
+                        <span>Electronics</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2">
+                        <span class="w-8"></span>
+                        <span>Home and Garden</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2">
+                        <span class="w-8">
+                        </span>
+                        <span>Fashion</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2 hover:bg-gray-700 rounded-xl">
+                        <span class="w-8">
+                            <i class="fas fa-percent"></i>
+                        </span>
+                        <span>Sell on Amazon</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2 hover:bg-gray-700 rounded-xl">
+                        <span class="w-8">
+                            <i class="far fa-question-circle"></i>
+                        </span>
+                        <span>Help</span>
+                    </div>
+                    <!-- sidebar items ends-->
+
+                </div>
+                <!-- sidebar categories ends-->
+
+            </div>
+            <!--sidebar ends-->
+
+            <!-- main section starts-->
+            <div class="main-section flex-1 p-6 bg-white">
+                <!-- heading -->
+                <h1 class="text-gray-400 text-3xl font-bold mb-6">Shopping Cart</h1>
+                <!-- cart table -->
+                <div class="table-titles flex font-bold flex text-gray-400">
+                    <!-- table headings -->
+                    <h2 class="flex-grow ml-3">Product</h2>
+                    <h2 class="w-48">Count</h2>
+                    <h2 class="w-48">Total Cost</h2>
+                    <span class="w-10"></span>
+                </div>
+                <!-- cart table ends -->
+
+                <!-- cart items -->
+                <div class="cart-items mt-5">
+                    <!-- items added to the cart goes here from the database -->
+                </div>
+                <!-- cart items ends -->
+                <!-- total cost section -->
+                <div class="complete-order flex justify-end mt-10">
+                    <div class="total-cost mr-7">
+                        <h2 class="text-gray-400">Total Cost</h2>
+                        <div class="total-cost-number text-3xl font-bold text-gray-600">
+                            <!-- total cost goes here from the database -->
+                        </div>
+                    </div>
+                    <!-- complete order button -->
+                    <div class="complete-order-button items-center w-56 flex justify-center bg-yellow-500 rounded text-white cursor-pointer hover:bg-yellow-600">
+                        Complete Order
+                    </div>
+                </div>
+                <!-- total cost section ends -->
+            </div>
+            <!-- main section ends -->
+        </div>
+        <!-- main ends -->
+    </div>
+</body>
+</html>
